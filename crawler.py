@@ -10,18 +10,25 @@ from os.path import join
 from os.path import basename
 txtFiles = {}
 
+#Var to store number of files
 count = 0
 
-for root, dirs, files in os.walk('/Users/tmughal3/documents/'):
+#Set Root Path
+myPath = '/Users/tmughal3/documents/'
+
+#Indexing the Files
+for root, dirs, files in os.walk(myPath):
     for file in files:
         if file.endswith(".txt"):
             count = count + 1
 
             txtFiles[str(count)] = join(root, file.title())
 
+#hashtable for words
 wordDict = {}
 wordCount = 0
 
+#Indexing the words
 for x in range(1,count+1,1):
     with open(txtFiles[str(x)],"r") as f:
         for line in f:
@@ -37,12 +44,14 @@ for x in range(1,count+1,1):
 print ("Files Found: " + str(count)+ "\n")
 print ("Word Count: " + str(wordCount) + "\n")
 
+#Infinite Search Loop
 while(1):
     sTerm = str(raw_input("Enter term:"))
     sha1 = hashlib.sha1()
     sha1.update(sTerm.lower())
     sha1 = sha1.hexdigest()
     result = ""
+
     #Check for filenames
     for x in range(1, count + 1, 1):
 
